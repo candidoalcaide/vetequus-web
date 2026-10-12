@@ -26,3 +26,24 @@
 ## Enfoque
 
 Prioridad: **migración fiel y rápida**, con un diseño limpio que mantenga la identidad actual (logo, colores, fotos) y arregle los problemas detectados (carrusel de servicios, erratas, textos legales, móvil).
+
+## Estado (12/10/2026)
+
+- Web nueva hecha con Astro en `~/Proyectos/vetequus-web` (fuera de iCloud: Documentos sincronizado hacía inviable el desarrollo).
+- Código en GitHub: `candidoalcaide/vetequus-web` (privado). Cada `git push` publica automáticamente.
+- Web de prueba: https://vetequus-web.candidoalcaide.workers.dev (Cloudflare Workers).
+- Comprobado en la web de prueba: todas las páginas, la 404 propia y las redirecciones 301 de las URLs antiguas `/post/...` de Wix.
+- vetequus.com sigue apuntando a Wix; el correo no se ha tocado.
+
+## Pendiente
+
+1. Revisión de Aída (sobre todo los textos legales; conviene que los vea su gestoría).
+2. Clave de Web3Forms (web3forms.com con vetequus@gmail.com) → `web3formsKey` en `src/site.ts`.
+3. Cambio de dominio:
+   - Añadir vetequus.com en Cloudflare (plan Free) y revisar los registros DNS importados.
+   - Quitar los MX de Google y activar Email Routing → vetequus@gmail.com.
+   - Cambiar los nameservers en WordPress.com (ahora `ns8/ns9.wixdns.net`) por los de Cloudflare.
+   - Asociar vetequus.com y www.vetequus.com al Worker `vetequus-web`.
+   - Dar de alta la web en Google Search Console y enviar el sitemap.
+4. Cancelar el plan Premium Light de Wix 1–2 semanas después del cambio, sin dejar que se renueve.
+5. Después: ficha de Google Business Profile; valorar trasladar el dominio a Cloudflare Registrar antes del 29/04/2027.
