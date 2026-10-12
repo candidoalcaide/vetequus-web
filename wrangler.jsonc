@@ -1,0 +1,10 @@
+// Configuración de Cloudflare Workers (web estática).
+{
+  "name": "vetequus-web",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // Sirve dist/404.html cuando una página no existe
+    "not_found_handling": "404-page"
+  }
+}
