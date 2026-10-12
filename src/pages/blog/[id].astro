@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fecha = post.data.fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.descripcion,
+  datePublished: post.data.fecha.toISOString(),
+  author: { '@type': 'Person', name: SITE.titular },
+  publisher: { '@type': 'Organization', name: SITE.name },
+  image: new URL(post.data.portada.src, SITE.url).href,
+};
+---
+<Base title={`${post.data.title} · Vetequus`} description={post.data.descripcion} image={post.data.portada} type="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <article>
+    <header class="page-head">
+      <div class="wrap">
+        <nav class="breadcrumb" aria-label="Ruta"><a href="/blog">← Todos los artículos</a></nav>
+        <h1>{post.data.title}</h1>
+        <p class="meta">{post.data.autora} · <time datetime={post.data.fecha.toISOString()}>{fecha}</time></p>
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="prose">
+        <Content />
+        <aside class="post-cta">
+          <p>¿Tiene dudas sobre la salud de su caballo?</p>
+          <div class="actions">
+            <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />Llamar al {SITE.telefono}</a>
+            <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</Base>

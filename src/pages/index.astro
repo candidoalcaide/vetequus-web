@@ -1,0 +1,176 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
+import hero from '../assets/hero.jpg';
+import campo from '../assets/caballo-campo.jpg';
+import aida from '../assets/aida.jpg';
+import logo from '../assets/logo-icono.png';
+import { SITE } from '../site';
+import { SERVICIOS } from '../servicios';
+
+// Artículos destacados en portada (los más leídos en Wix)
+const destacados = ['aplomos-miembros-anteriores', 'genetica-de-capas', 'aplomos-miembros-posteriores'];
+const posts = (await getCollection('blog'))
+  .filter((p) => destacados.includes(p.id))
+  .sort((a, b) => destacados.indexOf(a.id) - destacados.indexOf(b.id));
+const total = (await getCollection('blog')).length;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VeterinaryCare',
+  name: 'Vetequus',
+  description: 'Clínica ambulante equina. Veterinaria de caballos en Málaga y provincia.',
+  url: SITE.url,
+  telephone: SITE.telefonoE164,
+  email: SITE.email,
+  image: new URL(hero.src, SITE.url).href,
+  founder: { '@type': 'Person', name: SITE.titular, jobTitle: 'Veterinaria' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Finca La Capellanía',
+    postalCode: SITE.codigoPostal,
+    addressLocality: SITE.localidad,
+    addressRegion: 'Málaga',
+    addressCountry: 'ES',
+  },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Provincia de Málaga' },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '18:00' },
+  ],
+  sameAs: [SITE.facebook, SITE.instagram],
+};
+---
+<Base
+  title="Vetequus · Veterinaria de caballos en Málaga y provincia"
+  description="Clínica ambulante equina de Aída Huertas. Medicina general y deportiva, reproducción, odontología, diagnóstico por imagen, exámenes precompra y documentación en Málaga y provincia."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Clínica ambulante equina</p>
+        <h1>Veterinaria de caballos en Málaga y provincia</h1>
+        <p class="hero-lead">Hemos hecho de nuestra pasión, los caballos, nuestra profesión. Vamos a su cuadra para que su caballo se mantenga sano, atlético y feliz.</p>
+        <div class="hero-actions">
+          <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />Llamar al {SITE.telefono}</a>
+          <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+        </div>
+        <div class="credentials">
+          <div class="credential"><b>Desde 2005</b><span>cuidando caballos en Málaga</span></div>
+          <div class="credential"><b>Col. {SITE.colegiada}</b><span>Colegio de Veterinarios de Málaga</span></div>
+          <div class="credential"><b>Certificado</b><span>Español en Clínica Equina (2019)</span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <Image src={hero} alt="Caballo tordo con cabezada en el campo" widths={[600, 900, 1200]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" fetchpriority="high" />
+        <div class="hero-badge">
+          <Image src={logo} alt="" width={34} height={34} />
+          <div><strong>Urgencias fines de semana y festivos</strong><span>Llame o escriba por WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Servicios</p>
+        <h2>El mejor cuidado posible, y cariño para su caballo</h2>
+        <p>Atendemos en su cuadra o finca. Pulse en cada servicio para ver el detalle.</p>
+      </div>
+      <div class="services">
+        {SERVICIOS.map((s) => (
+          <article class="service">
+            <h3>{s.nombre}</h3>
+            <p>{s.resumen}</p>
+            <details><summary>Más información</summary><p>{s.detalle}</p></details>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="horario-title">
+    <Image src={campo} alt="" widths={[800, 1600]} sizes="100vw" />
+    <div class="wrap">
+      <p class="eyebrow" style="color:#9fe3e7">Horario de servicio</p>
+      <h2 id="horario-title">Llámenos y concierte su cita</h2>
+      <dl class="hours">
+        {SITE.horario.map((h) => <div><dt>{h.dias}</dt><dd>{h.horas}</dd></div>)}
+      </dl>
+      <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}>Llamar al {SITE.telefono}</a>
+    </div>
+  </section>
+
+  <section class="section" id="sobre-mi">
+    <div class="wrap about">
+      <figure class="about-photo">
+        <Image src={aida} alt="Aída Huertas abrazada a su caballo Coquito" widths={[480, 720]} sizes="(min-width: 900px) 40vw, 100vw" />
+        <figcaption>Aída con Coquito</figcaption>
+      </figure>
+      <div class="about-copy">
+        <p class="eyebrow">Sobre mí</p>
+        <h2>Aída Huertas Domínguez</h2>
+        <p>Nací en una familia que se ha dedicado con pasión a la cría de caballos, lo que me dio acceso a los conocimientos de cría, mejora y selección de ganado equino. En 2006 decidí comenzar a trabajar de forma autónoma como clínica ambulante equina, y desde entonces ofrezco mis servicios sin descuidar la formación continua.</p>
+        <ul class="cv">
+          <li><span class="year">2003</span><span>Licenciada en Veterinaria por la Universidad de Córdoba</span></li>
+          <li><span class="year">2006</span><span>Inicio de Vet-Equus Servicios Veterinarios, clínica ambulante equina</span></li>
+          <li><span class="year">2019</span><span>Certificado Español en Clínica Equina, primera promoción</span></li>
+          <li><span class="year">Col.</span><span>N.º {SITE.colegiada} del Colegio de Veterinarios de Málaga</span></li>
+          <li><span class="year">+</span><span>Posgrado en Medicina Interna Equina (UAB) y MBA (ESIC)</span></li>
+        </ul>
+        <details class="more">
+          <summary>Formación y trayectoria completa</summary>
+          <p>Durante mis estudios fui alumna interna de Etnología, Etología y Radiología, y del Hospital Clínico Veterinario de la Universidad de Córdoba. En vacaciones hice prácticas en hospitales europeos como el Hospital Equinia (Noorderwijk, Bélgica).</p>
+          <p>Después realicé el internado en el Centro Policlínico Veterinario San Vicente del Raspeig bajo la supervisión del Dr. Manuel Alejandro Rodríguez, donde completé mi formación en reproducción equina, clínica ambulante, cuidados intensivos y cirugía. Más tarde realicé estancias en hospitales de referencia como el Hospital Clínico Veterinario de la Universidad Autónoma de Barcelona, el Hospital De Morette (Bélgica), el Animal Health Trust (Reino Unido) y el Three Counties Equine Hospital (Reino Unido).</p>
+        </details>
+        <p class="signoff">Siempre con ilusión, cariño y ganas de seguir aprendiendo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="blog">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Blog</p>
+        <h2>Artículos para propietarios</h2>
+      </div>
+      <div class="posts">
+        {posts.map((p) => (
+          <a class="post" href={`/blog/${p.id}`}>
+            <Image src={p.data.portada} alt="" widths={[400, 800]} sizes="(min-width: 900px) 33vw, 100vw" />
+            <div class="post-body"><h3>{p.data.title}</h3><p>{p.data.descripcion}</p></div>
+          </a>
+        ))}
+      </div>
+      <div class="posts-more"><a class="btn btn--ghost" href="/blog">Ver los {total} artículos</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="wrap contact">
+      <div class="direct">
+        <div class="section-head" style="margin-bottom:0">
+          <p class="eyebrow">Contacto</p>
+          <h2>Hablemos de su caballo</h2>
+          <p>Para urgencias, llame o escriba por WhatsApp.</p>
+        </div>
+        <dl>
+          <div><dt>Teléfono y WhatsApp</dt><dd><a href={`tel:${SITE.telefonoE164}`}>{SITE.telefono}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+          <div><dt>Zona de trabajo</dt><dd>{SITE.zona}. Consúltenos para otras zonas.</dd></div>
+          <div><dt>Horario</dt><dd>L–V, 10:00–18:00 · Fines de semana y festivos, solo urgencias</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />Llamar</a>
+          <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+        </div>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</Base>

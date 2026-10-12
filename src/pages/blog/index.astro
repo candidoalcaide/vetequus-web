@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'es'));
+---
+<Base
+  title="Blog · Vetequus"
+  description="Artículos de veterinaria equina para propietarios: cólicos, aplomos, dentición, genética de capas, parto de la yegua y más."
+>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Blog</p>
+      <h1>Artículos para propietarios</h1>
+      <p class="hero-lead">Consejos y conceptos básicos de veterinaria equina, escritos por Aída Huertas.</p>
+    </div>
+  </section>
+  <section class="section section--mist" style="padding-top: clamp(32px, 5vw, 56px)">
+    <div class="wrap">
+      <div class="posts">
+        {posts.map((p) => (
+          <a class="post" href={`/blog/${p.id}`}>
+            <Image src={p.data.portada} alt="" widths={[400, 800]} sizes="(min-width: 900px) 33vw, 100vw" />
+            <div class="post-body"><h3>{p.data.title}</h3><p>{p.data.descripcion}</p></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

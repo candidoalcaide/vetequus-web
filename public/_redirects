@@ -1,0 +1,18 @@
+# Redirecciones permanentes de las URLs antiguas de Wix (Cloudflare Pages).
+# Las URLs con tildes se incluyen tal cual y codificadas, por seguridad.
+
+/post/conceptos-básicos-sobre-la-determinación-de-la-edad-del-caballo-según-su-dentición  /blog/edad-caballo-denticion  301
+/post/conceptos-b%C3%A1sicos-sobre-la-determinaci%C3%B3n-de-la-edad-del-caballo-seg%C3%BAn-su-dentici%C3%B3n  /blog/edad-caballo-denticion  301
+/post/infección-por-rhodococcus-equi  /blog/rhodococcus-equi  301
+/post/infecci%C3%B3n-por-rhodococcus-equi  /blog/rhodococcus-equi  301
+/post/genetica-de-capas-en-los-caballos  /blog/genetica-de-capas  301
+/post/el-colico-en-el-caballo-los-sintomas  /blog/colico-sintomas  301
+/post/el-cólico-en-el-caballo-cómo-reaccionar  /blog/colico-como-reaccionar  301
+/post/el-c%C3%B3lico-en-el-caballo-c%C3%B3mo-reaccionar  /blog/colico-como-reaccionar  301
+/post/los-aplomos-del-caballo-parte-1-miembros-anteriores  /blog/aplomos-miembros-anteriores  301
+/post/los-aplomos-del-caballo-parte-2-miembro-posterior  /blog/aplomos-miembros-posteriores  301
+/post/el-parto-de-la-yegua  /blog/parto-yegua  301
+
+# Otras rutas de Wix
+/blog/categories/*  /blog  301
+/post/*  /blog  301

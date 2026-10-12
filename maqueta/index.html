@@ -1,0 +1,517 @@
+<title>Portada Vetequus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: "ficha de campo" — una columna en móvil con barra fija de llamada/WhatsApp;
+   en escritorio, hero partido texto/foto, servicios en rejilla 4×2 y contacto en dos columnas.
+   Tema único claro, deliberado: la marca (turquesa + marrón sobre blanco) solo existe en claro. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff;        /* fondo principal */
+  --mist: #edf5f4;         /* fondo alterno, neutro con sesgo turquesa */
+  --ink: #2a2420;          /* texto, casi negro cálido */
+  --muted: #645a52;        /* texto secundario */
+  --line: #d5e3e1;         /* bordes y separadores */
+  --brown: #5e3714;        /* marrón de marca: titulares */
+  --teal: #12b4be;         /* turquesa de marca: acentos */
+  --teal-deep: #07707a;    /* turquesa oscuro: botones y enlaces (AA sobre blanco) */
+  --on-dark: #f4f8f7;      /* texto sobre fotos oscurecidas */
+
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.625rem;
+  --step-3: clamp(1.9rem, 1.4rem + 2.2vw, 2.75rem);
+  --step-4: clamp(2.2rem, 1.5rem + 3.4vw, 3.6rem);
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1160px;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+h1, h2, h3 { font-family: var(--font-display); color: var(--brown); line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--teal-deep); }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--teal); outline-offset: 2px;
+}
+img { display: block; max-width: 100%; height: auto; }
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(56px, 8vw, 104px); }
+.section--mist { background: var(--mist); }
+.eyebrow {
+  font-size: var(--step--1); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal-deep);
+}
+.section-head { display: grid; gap: 12px; max-width: 62ch; margin-bottom: clamp(28px, 4vw, 48px); }
+.section-head h2 { font-size: var(--step-3); }
+.section-head p { color: var(--muted); font-size: var(--step-1); }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 12px 22px; border-radius: 999px;
+  font: 700 var(--step-0)/1 var(--font-body); text-decoration: none; cursor: pointer;
+  border: 2px solid var(--teal-deep); transition: background-color .15s, color .15s;
+}
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn--solid { background: var(--teal-deep); color: #fff; }
+.btn--solid:hover { background: #055c64; border-color: #055c64; }
+.btn--ghost { background: transparent; color: var(--teal-deep); }
+.btn--ghost:hover { background: var(--mist); }
+
+/* Aviso de maqueta */
+.draft-note {
+  background: var(--brown); color: #fff; font-size: var(--step--1); text-align: center;
+  padding: 8px var(--gutter);
+}
+
+/* Cabecera */
+.header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 40px; height: 40px; }
+.brand-text { display: grid; line-height: 1; }
+.brand-name { font-family: var(--font-body); font-weight: 800; font-size: 1.35rem; letter-spacing: 0.01em; }
+.brand-name .vet { color: var(--teal); }
+.brand-name .equus { color: var(--brown); }
+.brand-sub { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.32em; color: var(--brown); margin-top: 4px; }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 600; }
+.nav a:not(.btn):hover { color: var(--teal-deep); }
+.nav .btn { min-height: 42px; padding: 10px 18px; }
+@media (max-width: 860px) { .nav a:not(.btn) { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(32px, 6vw, 72px); }
+.hero .wrap { display: grid; gap: clamp(28px, 5vw, 64px); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.05fr 1fr; } }
+.hero-copy { display: grid; gap: 20px; min-width: 0; }
+.hero h1 { font-size: var(--step-4); }
+.hero-lead { font-size: var(--step-1); color: var(--muted); max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-photo { position: relative; min-width: 0; }
+.hero-photo img { width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; object-position: 30% center; border-radius: var(--radius); }
+.hero-badge {
+  position: absolute; left: 16px; bottom: 16px; max-width: calc(100% - 32px);
+  background: var(--paper); border-radius: var(--radius); padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 24px rgb(42 36 32 / .16);
+}
+.hero-badge img { width: 34px; height: 34px; border-radius: 0; aspect-ratio: auto; }
+.hero-badge strong { display: block; color: var(--brown); font-size: var(--step--1); line-height: 1.3; }
+.hero-badge span { color: var(--muted); font-size: var(--step--1); line-height: 1.3; }
+
+.credentials {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px 28px;
+  margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line);
+}
+.credential { display: grid; gap: 2px; min-width: 0; }
+.credential b { font-family: var(--font-display); color: var(--brown); font-size: var(--step-1); font-weight: 600; }
+.credential span { color: var(--muted); font-size: var(--step--1); line-height: 1.35; }
+
+/* Servicios */
+.services { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); align-items: start; }
+.service {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px 22px 18px; display: grid; gap: 10px; min-width: 0;
+}
+.service h3 { font-size: var(--step-1); display: flex; gap: 10px; align-items: baseline; }
+.service h3::before {
+  content: ""; flex: none; width: 12px; height: 12px; translate: 0 1px;
+  background: var(--teal);
+  clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%);
+}
+.service p { color: var(--muted); font-size: 1rem; line-height: 1.5; }
+.service details { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.service summary { cursor: pointer; color: var(--teal-deep); font-weight: 700; font-size: var(--step--1); list-style: none; }
+.service summary::-webkit-details-marker { display: none; }
+.service summary::after { content: " +"; }
+.service details[open] summary::after { content: " –"; }
+.service details p { margin-top: 10px; color: var(--ink); }
+
+/* Banda horario */
+.band { position: relative; color: var(--on-dark); isolation: isolate; }
+.band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; z-index: -2; }
+.band::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(28 22 18 / .86) 0%, rgb(28 22 18 / .62) 55%, rgb(28 22 18 / .25) 100%); }
+.band .wrap { display: grid; gap: 22px; padding-block: clamp(56px, 9vw, 112px); }
+.band h2 { color: #fff; font-size: var(--step-3); max-width: 18ch; }
+.hours { display: grid; gap: 8px; margin: 0; max-width: 460px; }
+.hours div { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid rgb(255 255 255 / .25); padding-block: 8px; flex-wrap: wrap; }
+.hours dt { font-weight: 600; }
+.hours dd { margin: 0; font-variant-numeric: tabular-nums; }
+.band .btn--solid { background: #fff; color: var(--teal-deep); border-color: #fff; justify-self: start; }
+.band .btn--solid:hover { background: var(--mist); }
+
+/* Sobre mí */
+.about { display: grid; gap: clamp(28px, 5vw, 64px); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .about { grid-template-columns: 0.85fr 1.15fr; } }
+.about-photo { margin: 0; min-width: 0; }
+.about-photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: 60% center; border-radius: var(--radius); }
+.about-photo figcaption { font-size: var(--step--1); color: var(--muted); margin-top: 8px; }
+.about-copy { display: grid; gap: 16px; min-width: 0; max-width: 65ch; }
+.about-copy h2 { font-size: var(--step-3); }
+.cv { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cv li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 12px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.cv .year { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--teal-deep); }
+.more summary { cursor: pointer; color: var(--teal-deep); font-weight: 700; }
+.more p { margin-top: 12px; }
+.signoff { font-family: var(--font-display); font-style: italic; color: var(--brown); font-size: var(--step-1); }
+
+/* Blog */
+.posts { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.post { display: grid; grid-template-rows: auto 1fr; background: var(--paper); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; border: 1px solid var(--line); }
+.post img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.post-body { display: grid; gap: 8px; padding: 18px 20px 22px; align-content: start; }
+.post-body h3 { font-size: var(--step-1); }
+.post-body p { color: var(--muted); font-size: 1rem; line-height: 1.5; }
+.post:hover h3 { color: var(--teal-deep); }
+.posts-more { margin-top: 28px; }
+
+/* Contacto */
+.contact { display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .contact { grid-template-columns: 0.8fr 1.2fr; } }
+.direct { display: grid; gap: 22px; align-content: start; min-width: 0; }
+.direct dl { margin: 0; display: grid; gap: 18px; }
+.direct dt { font-size: var(--step--1); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.direct dd { margin: 4px 0 0; font-size: var(--step-1); overflow-wrap: anywhere; }
+.direct dd a { font-weight: 600; }
+.direct .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.form { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 3.5vw, 36px); display: grid; gap: 18px; min-width: 0; }
+.form h3 { font-size: var(--step-2); }
+.form .row { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-weight: 600; font-size: 1rem; }
+.field .opt { font-weight: 400; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper);
+  border: 1.5px solid #b9cbc9; border-radius: 8px; padding: 12px 14px; min-height: 48px;
+}
+.field textarea { min-height: 130px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal-deep); }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 1rem; }
+.check input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--teal-deep); flex: none; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-note { font-size: var(--step--1); color: var(--muted); }
+.form-status { border-radius: 8px; padding: 12px 14px; font-weight: 600; }
+.form-status.ok { background: var(--mist); color: var(--teal-deep); }
+.form-status.err { background: #fbeeea; color: #8a2b14; }
+
+/* Pie */
+.footer { background: var(--brown); color: #f1e9e2; padding-block: 48px; font-size: 1rem; }
+.footer .wrap { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.footer a { color: #fff; }
+.footer h4 { margin: 0 0 10px; font-size: var(--step--1); letter-spacing: 0.14em; text-transform: uppercase; color: #d9c6b4; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.footer .legal { grid-column: 1 / -1; border-top: 1px solid rgb(255 255 255 / .18); padding-top: 20px; font-size: var(--step--1); color: #d9c6b4; }
+
+/* Barra de acción fija en móvil */
+.mobile-bar { display: none; }
+@media (max-width: 720px) {
+  .mobile-bar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: var(--paper); border-top: 1px solid var(--line); box-shadow: 0 -4px 16px rgb(42 36 32 / .08);
+  }
+  .mobile-bar .btn { min-height: 48px; padding-inline: 12px; }
+  body { padding-bottom: 76px; }
+  .nav .btn { display: none; }
+}
+</style>
+
+<div class="draft-note">Maqueta de la nueva web de Vetequus · Borrador para revisión, no es la web publicada</div>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Vetequus, inicio">
+      <img src="img/logo-icono.png" alt="" width="40" height="40">
+      <span class="brand-text">
+        <span class="brand-name"><span class="vet">VET</span><span class="equus">EQUUS</span></span>
+        <span class="brand-sub">AIDA HUERTAS</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#blog">Blog</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn btn--solid" href="tel:+34669937061">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+        669 937 061
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Clínica ambulante equina</p>
+        <h1>Veterinaria de caballos en Málaga y provincia</h1>
+        <p class="hero-lead">Hemos hecho de nuestra pasión, los caballos, nuestra profesión. Vamos a su cuadra para que su caballo se mantenga sano, atlético y feliz.</p>
+        <div class="hero-actions">
+          <a class="btn btn--solid" href="tel:+34669937061">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+            Llamar al 669 937 061
+          </a>
+          <a class="btn btn--ghost" href="https://wa.me/34669937061" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="credentials">
+          <div class="credential"><b>Desde 2005</b><span>cuidando caballos en Málaga</span></div>
+          <div class="credential"><b>Col. 291102</b><span>Colegio de Veterinarios de Málaga</span></div>
+          <div class="credential"><b>Certificado</b><span>Español en Clínica Equina (2019)</span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="img/hero.jpg" alt="Caballo tordo con cabezada en el campo" width="1200" height="800">
+        <div class="hero-badge">
+          <img src="img/logo-icono.png" alt="" width="34" height="34">
+          <div><strong>Urgencias fines de semana y festivos</strong><span>Llame o escriba por WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Servicios</p>
+        <h2>El mejor cuidado posible, y cariño para su caballo</h2>
+        <p>Atendemos en su cuadra o finca. Pulse en cada servicio para ver el detalle.</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <h3>Medicina general</h3>
+          <p>Problemas digestivos, respiratorios, dermatológicos y de medicina interna.</p>
+          <details><summary>Más información</summary><p>La base de la veterinaria equina es la medicina general. Estamos disponibles para cualquier consulta y sobre todo las relacionadas con la medicina interna. Ya sean problemas digestivos, respiratorios, dermatológicos o de cualquier otro tipo, no dude en ponerse en contacto con nosotros para concertar una cita y realizar un estudio detallado de cualquier problema que ataña a su caballo.</p></details>
+        </article>
+        <article class="service">
+          <h3>Medicina deportiva</h3>
+          <p>Diagnóstico de cojeras y de problemas de rendimiento.</p>
+          <details><summary>Más información</summary><p>Cada día la exigencia de rendimiento de nuestros caballos es más alta, y deben contar con la ayuda de un veterinario que les ayude a mostrar su máximo potencial. Ofrecemos servicios de diagnóstico de cojeras, ecografía, radiología digital y diagnóstico de problemas de rendimiento.</p></details>
+        </article>
+        <article class="service">
+          <h3>Reproducción y neonatología</h3>
+          <p>Ginecología, andrología, obstetricia, inseminación y transferencia embrionaria.</p>
+          <details><summary>Más información</summary><p>Ofertamos amplios servicios de ginecología, andrología y obstetricia. Además de diagnóstico y control de gestación, diagnóstico de problemas ginecológicos e inseminación artificial, hemos incorporado la extracción, valoración, refrigeración y comercialización de semen refrigerado y el trasplante embrionario.</p></details>
+        </article>
+        <article class="service">
+          <h3>Odontología</h3>
+          <p>Cuidado dental preventivo para resolver los problemas a tiempo.</p>
+          <details><summary>Más información</summary><p>Incluso si su caballo está sano, el cuidado dental de los équidos es esencial. Si se detectan a tiempo, hay problemas que se pueden resolver de manera rápida y económica. Por eso en Vetequus estamos comprometidos con el cuidado preventivo.</p></details>
+        </article>
+        <article class="service">
+          <h3>Diagnóstico por imagen</h3>
+          <p>Radiología digital y ecografía en la propia cuadra.</p>
+          <details><summary>Más información</summary><p>La radiología digital y la ecografía nos permiten abordar de manera completa diversas patologías para su diagnóstico y tratamiento: diagnóstico de cojeras, control y seguimiento de patologías del aparato locomotor, evaluación de infosuras/laminitis, cuidados ortopédicos, evaluación reproductiva…</p></details>
+        </article>
+        <article class="service">
+          <h3>Exámenes precompra</h3>
+          <p>Valoración completa en estático y en movimiento antes de comprar.</p>
+          <details><summary>Más información</summary><p>El examen precompra permite conocer la salud actual del caballo para su valoración por parte de vendedor y comprador. Incluye pruebas en estático (aparato digestivo, respiratorio, cutáneo, oftalmológico, odontológico, palpación y valoración de miembros, dorso y cuello) y en movimiento (pruebas de flexión, valoración de cojeras, pruebas de esfuerzo), apoyadas por reconocimiento radiológico, pruebas de laboratorio ante cualquier sospecha y exámenes reproductivos en animales destinados a la cría.</p></details>
+        </article>
+        <article class="service">
+          <h3>Medicina preventiva</h3>
+          <p>Vacunación, desparasitación, nutrición y manejo.</p>
+          <details><summary>Más información</summary><p>Asesoramiento para la prevención de todo tipo de enfermedades. Programas de vacunación y desparasitación frente a las enfermedades infecciosas más frecuentes (influenza, tétanos, fiebre del Nilo Occidental…). Medidas nutricionales, odontológicas y de manejo para prevenir problemas digestivos (cólicos), respiratorios y alérgicos. La prevención es la mejor herramienta para ahorrar dinero y salvaguardar la salud de nuestros animales.</p></details>
+        </article>
+        <article class="service">
+          <h3>Identificación y documentación</h3>
+          <p>Microchip, pasaporte/DIE, cambios de titularidad y transporte.</p>
+          <details><summary>Más información</summary><p>Elaboración de reseñas, implantación de microchip y gestión de los trámites del pasaporte/DIE, cambios de propietario, documentación para el transporte de équidos y libros de explotación. Tenemos la mejor relación con las administraciones y las asociaciones de ganaderos para agilizar todas sus gestiones.</p></details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="horario-title">
+    <img src="img/caballo-campo.jpg" alt="" width="1600" height="1067" loading="lazy">
+    <div class="wrap">
+      <p class="eyebrow" style="color:#9fe3e7">Horario de servicio</p>
+      <h2 id="horario-title">Llámenos y concierte su cita</h2>
+      <dl class="hours">
+        <div><dt>Lunes a viernes</dt><dd>10:00 – 18:00</dd></div>
+        <div><dt>Sábados, domingos y festivos</dt><dd>Solo urgencias</dd></div>
+      </dl>
+      <a class="btn btn--solid" href="tel:+34669937061">Llamar al 669 937 061</a>
+    </div>
+  </section>
+
+  <section class="section" id="sobre-mi">
+    <div class="wrap about">
+      <figure class="about-photo">
+        <img src="img/aida.jpg" alt="Aída Huertas abrazada a su caballo Coquito" width="720" height="480" loading="lazy">
+        <figcaption>Aída con Coquito</figcaption>
+      </figure>
+      <div class="about-copy">
+        <p class="eyebrow">Sobre mí</p>
+        <h2>Aída Huertas Domínguez</h2>
+        <p>Nací en una familia que se ha dedicado con pasión a la cría de caballos, lo que me dio acceso a los conocimientos de cría, mejora y selección de ganado equino. En 2006 decidí comenzar a trabajar de forma autónoma como clínica ambulante equina, y desde entonces ofrezco mis servicios sin descuidar la formación continua.</p>
+        <ul class="cv">
+          <li><span class="year">2003</span><span>Licenciada en Veterinaria por la Universidad de Córdoba</span></li>
+          <li><span class="year">2006</span><span>Inicio de Vet-Equus Servicios Veterinarios, clínica ambulante equina</span></li>
+          <li><span class="year">2019</span><span>Certificado Español en Clínica Equina, primera promoción</span></li>
+          <li><span class="year">Col.</span><span>N.º 291102 del Colegio de Veterinarios de Málaga</span></li>
+          <li><span class="year">+</span><span>Posgrado en Medicina Interna Equina (UAB) y MBA (ESIC)</span></li>
+        </ul>
+        <details class="more">
+          <summary>Formación y trayectoria completa</summary>
+          <p>Durante mis estudios fui alumna interna de Etnología, Etología y Radiología, y del Hospital Clínico Veterinario de la Universidad de Córdoba. En vacaciones hice prácticas en hospitales europeos como el Hospital Equinia (Noorderwijk, Bélgica).</p>
+          <p>Después realicé el internado en el Centro Policlínico Veterinario San Vicente del Raspeig bajo la supervisión del Dr. Manuel Alejandro Rodríguez, donde completé mi formación en reproducción equina, clínica ambulante, cuidados intensivos y cirugía. Más tarde realicé estancias en hospitales de referencia como el Hospital Clínico Veterinario de la Universidad Autónoma de Barcelona, el Hospital De Morette (Bélgica), el Animal Health Trust (Reino Unido) y el Three Counties Equine Hospital (Reino Unido).</p>
+        </details>
+        <p class="signoff">Siempre con ilusión, cariño y ganas de seguir aprendiendo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="blog">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Blog</p>
+        <h2>Artículos para propietarios</h2>
+      </div>
+      <div class="posts">
+        <a class="post" href="#blog">
+          <img src="img/blog-aplomos1.jpg" alt="Caballo visto de frente para valorar sus aplomos" width="800" height="533" loading="lazy">
+          <div class="post-body"><h3>Los aplomos del caballo: miembros anteriores</h3><p>Qué son los aplomos y cómo detectar sus defectos, con el caballo parado y en movimiento.</p></div>
+        </a>
+        <a class="post" href="#blog">
+          <img src="img/blog-genetica.jpg" alt="Caballo de capa torda" width="800" height="533" loading="lazy">
+          <div class="post-body"><h3>Genética de capas en los caballos</h3><p>Cómo los genes Grey, Extension, Agouti y Crema determinan la capa, y cómo predecir la de un potro.</p></div>
+        </a>
+        <a class="post" href="#blog">
+          <img src="img/blog-aplomos2.jpg" alt="Caballo visto desde atrás para valorar los miembros posteriores" width="800" height="533" loading="lazy">
+          <div class="post-body"><h3>Los aplomos del caballo: miembros posteriores</h3><p>Cerrado de corvejones, plantado, remetido: cómo evaluar los posteriores desde atrás y de perfil.</p></div>
+        </a>
+      </div>
+      <div class="posts-more"><a class="btn btn--ghost" href="#blog">Ver los 8 artículos</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="wrap contact">
+      <div class="direct">
+        <div class="section-head" style="margin-bottom:0">
+          <p class="eyebrow">Contacto</p>
+          <h2>Hablemos de su caballo</h2>
+          <p>Para urgencias, llame o escriba por WhatsApp.</p>
+        </div>
+        <dl>
+          <div><dt>Teléfono y WhatsApp</dt><dd><a href="tel:+34669937061">669 937 061</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:vetequus@gmail.com">vetequus@gmail.com</a></dd></div>
+          <div><dt>Zona de trabajo</dt><dd>Provincia de Málaga y zonas colindantes. Consúltenos para otras zonas.</dd></div>
+          <div><dt>Horario</dt><dd>L–V, 10:00–18:00 · Fines de semana y festivos, solo urgencias</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn--solid" href="tel:+34669937061">Llamar</a>
+          <a class="btn btn--ghost" href="https://wa.me/34669937061" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+
+      <form class="form" id="contact-form" novalidate>
+        <h3>Escríbanos</h3>
+        <div class="row">
+          <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+          <div class="field"><label for="f-localidad">Localidad <span class="opt">(dónde está el caballo)</span></label><input id="f-localidad" name="localidad" autocomplete="address-level2"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="f-telefono">Teléfono</label><input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+        </div>
+        <div class="field">
+          <label for="f-tipo">Tipo de consulta</label>
+          <select id="f-tipo" name="tipo">
+            <option value="">Seleccione una opción</option>
+            <option>Medicina general</option>
+            <option>Medicina deportiva / cojeras</option>
+            <option>Reproducción y neonatología</option>
+            <option>Odontología</option>
+            <option>Diagnóstico por imagen</option>
+            <option>Examen precompra</option>
+            <option>Medicina preventiva (vacunas, desparasitación)</option>
+            <option>Identificación y documentación</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-mensaje">Mensaje</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="f-web">No rellenar</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
+        <label class="check" for="f-privacidad"><input id="f-privacidad" name="privacidad" type="checkbox" required><span>He leído y acepto la <a href="#contacto">política de privacidad</a>.</span></label>
+        <p class="form-note">Déjenos un teléfono o un email para poder responderle. Para urgencias, llame directamente.</p>
+        <div id="form-status" class="form-status" role="status" hidden></div>
+        <button class="btn btn--solid" type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <h4>Vetequus</h4>
+      <p>Clínica ambulante equina de Aída Huertas Domínguez, veterinaria colegiada n.º 291102.</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+34669937061">669 937 061</a></li>
+        <li><a href="mailto:vetequus@gmail.com">vetequus@gmail.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Síganos</h4>
+      <ul>
+        <li><a href="https://www.facebook.com/vetequus" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.instagram.com/aidahuertas/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="legal">© 2026 Vetequus · <a href="#contacto">Aviso legal</a> · <a href="#contacto">Privacidad</a> · <a href="#contacto">Cookies</a></div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn--solid" href="tel:+34669937061">Llamar</a>
+  <a class="btn btn--ghost" href="https://wa.me/34669937061" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = (id) => document.getElementById(id).value.trim();
+    let msg = '';
+    if (v('f-web')) return; // trampa antispam
+    if (!v('f-nombre')) msg = 'Escriba su nombre.';
+    else if (!v('f-telefono') && !v('f-email')) msg = 'Déjenos un teléfono o un email para poder responderle.';
+    else if (!v('f-mensaje')) msg = 'Escriba su mensaje.';
+    else if (!document.getElementById('f-privacidad').checked) msg = 'Debe aceptar la política de privacidad.';
+    status.hidden = false;
+    if (msg) { status.className = 'form-status err'; status.textContent = msg; return; }
+    status.className = 'form-status ok';
+    status.textContent = 'Maqueta: en la web real, este mensaje llegaría a vetequus@gmail.com y vería aquí la confirmación de envío.';
+  });
+</script>

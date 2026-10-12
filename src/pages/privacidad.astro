@@ -1,0 +1,41 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../site';
+---
+<Legal title="Política de privacidad" description="Cómo trata Vetequus los datos personales que recibe a través de la web, el teléfono, el email y WhatsApp." updated="octubre de 2026">
+  <h2>Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> {SITE.titular} (Vetequus)</li>
+    <li><strong>NIF:</strong> {SITE.nif}</li>
+    <li><strong>Domicilio:</strong> {SITE.domicilio}</li>
+    <li><strong>Email:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+    <li><strong>Teléfono:</strong> {SITE.telefono}</li>
+  </ul>
+
+  <h2>Qué datos tratamos</h2>
+  <p>Solo los que usted nos facilita al contactar con nosotros: a través del formulario de contacto (nombre, localidad, teléfono, email, tipo de consulta y mensaje), por email, por teléfono o por WhatsApp. No pida ni envíe datos especialmente sensibles a través del formulario.</p>
+
+  <h2>Para qué los usamos</h2>
+  <p>Para responder a su consulta y, si lo solicita, concertar una visita veterinaria. No los usamos para enviar publicidad ni elaboramos perfiles.</p>
+
+  <h2>Base legal</h2>
+  <ul>
+    <li>Su <strong>consentimiento</strong>, que presta al enviar el formulario o contactar con nosotros (art. 6.1.a del Reglamento General de Protección de Datos, RGPD). Puede retirarlo en cualquier momento.</li>
+    <li>La aplicación de <strong>medidas precontractuales</strong> a petición suya, cuando nos pide presupuesto o una cita (art. 6.1.b RGPD).</li>
+  </ul>
+
+  <h2>Cuánto tiempo los conservamos</h2>
+  <p>El tiempo necesario para atender su consulta. Si llega a ser cliente, conservaremos los datos necesarios durante los plazos que exige la normativa (fiscal, sanitaria y de identificación animal).</p>
+
+  <h2>Quién más accede a sus datos</h2>
+  <p>No cedemos sus datos a terceros salvo obligación legal. Para prestar el servicio usamos proveedores que tratan datos por cuenta nuestra:</p>
+  <ul>
+    <li><strong>Web3Forms</strong>: transmite los mensajes del formulario a nuestro email.</li>
+    <li><strong>Google (Gmail)</strong>: servicio de correo electrónico.</li>
+    <li><strong>Cloudflare</strong>: alojamiento y seguridad del sitio web, que puede registrar direcciones IP por motivos técnicos y de seguridad.</li>
+  </ul>
+  <p>Algunos de estos proveedores pueden tratar datos fuera del Espacio Económico Europeo. En ese caso lo hacen con las garantías previstas en el RGPD, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo de la Comisión Europea.</p>
+
+  <h2>Sus derechos</h2>
+  <p>Puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Si considera que no hemos tratado bien sus datos, puede presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>).</p>
+</Legal>

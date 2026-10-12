@@ -1,0 +1,109 @@
+---
+import '@fontsource/bitter/500.css';
+import '@fontsource/bitter/500-italic.css';
+import '@fontsource/bitter/600.css';
+import '@fontsource/bitter/700.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/600.css';
+import '@fontsource/source-sans-3/700.css';
+import '@fontsource/source-sans-3/800.css';
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import Icon from '../components/Icon.astro';
+import logo from '../assets/logo-icono.png';
+import ogDefault from '../assets/hero.jpg';
+import { SITE } from '../site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  type?: 'website' | 'article';
+}
+const { title, description, image = ogDefault, type = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url);
+const ogImage = new URL(image.src, SITE.url);
+const path = Astro.url.pathname;
+const current = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="canonical" href={canonical}>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="sitemap" href="/sitemap-index.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:type" content={type}>
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content={SITE.name}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={canonical}>
+    <meta property="og:image" content={ogImage}>
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="wrap">
+        <a class="brand" href="/" aria-label="Vetequus, inicio">
+          <Image src={logo} alt="" width={40} height={40} loading="eager" />
+          <span class="brand-text">
+            <span class="brand-name"><span class="vet">VET</span><span class="equus">EQUUS</span></span>
+            <span class="brand-sub">AIDA HUERTAS</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Principal">
+          <a href="/#servicios">Servicios</a>
+          <a href="/#sobre-mi">Sobre mí</a>
+          <a href="/blog" aria-current={current('/blog')}>Blog</a>
+          <a href="/#contacto">Contacto</a>
+          <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{SITE.telefono}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div>
+          <h4>Vetequus</h4>
+          <p>Clínica ambulante equina de Aída Huertas Domínguez, veterinaria colegiada n.º {SITE.colegiada}.</p>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href={`tel:${SITE.telefonoE164}`}>{SITE.telefono}</a></li>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li>{SITE.zona}</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Síganos</h4>
+          <ul>
+            <li><a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="legal">
+          © {new Date().getFullYear()} Vetequus ·
+          <a href="/aviso-legal">Aviso legal</a> ·
+          <a href="/privacidad">Privacidad</a> ·
+          <a href="/cookies">Cookies</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="mobile-bar">
+      <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />Llamar</a>
+      <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+    </div>
+  </body>
+</html>

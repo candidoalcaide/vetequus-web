@@ -1,0 +1,87 @@
+---
+// Formulario de contacto. Envía con Web3Forms (https://web3forms.com) a SITE.email.
+// No usa cookies ni scripts de terceros: solo una petición al enviar.
+import { SITE } from '../site';
+import { SERVICIOS } from '../servicios';
+---
+<form class="form" id="contact-form" novalidate data-key={SITE.web3formsKey} data-phone={SITE.telefono}>
+  <h3>Escríbanos</h3>
+  <div class="row">
+    <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+    <div class="field"><label for="f-localidad">Localidad <span class="opt">(dónde está el caballo)</span></label><input id="f-localidad" name="localidad" autocomplete="address-level2"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label for="f-telefono">Teléfono</label><input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
+    <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+  </div>
+  <div class="field">
+    <label for="f-tipo">Tipo de consulta</label>
+    <select id="f-tipo" name="tipo">
+      <option value="">Seleccione una opción</option>
+      {SERVICIOS.map((s) => <option>{s.nombre}</option>)}
+      <option>Otro</option>
+    </select>
+  </div>
+  <div class="field"><label for="f-mensaje">Mensaje</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
+  <div class="hp" aria-hidden="true"><label for="f-botcheck">No rellenar</label><input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off"></div>
+  <label class="check" for="f-privacidad"><input id="f-privacidad" name="privacidad" type="checkbox" required><span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span></label>
+  <p class="form-note">Déjenos un teléfono o un email para poder responderle. Para urgencias, llame directamente.</p>
+  <div id="form-status" class="form-status" role="status" hidden></div>
+  <button class="btn btn--solid" type="submit">Enviar mensaje</button>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status') as HTMLDivElement;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const val = (name: string) => ((form.elements.namedItem(name) as HTMLInputElement)?.value ?? '').trim();
+
+  function show(kind: 'ok' | 'err', text: string) {
+    status.hidden = false;
+    status.className = `form-status ${kind}`;
+    status.textContent = text;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if ((form.elements.namedItem('botcheck') as HTMLInputElement).checked) return; // trampa antispam
+
+    let error = '';
+    if (!val('nombre')) error = 'Escriba su nombre.';
+    else if (!val('telefono') && !val('email')) error = 'Déjenos un teléfono o un email para poder responderle.';
+    else if (!val('mensaje')) error = 'Escriba su mensaje.';
+    else if (!(form.elements.namedItem('privacidad') as HTMLInputElement).checked) error = 'Debe aceptar la política de privacidad.';
+    if (error) return show('err', error);
+
+    const phone = form.dataset.phone;
+    button.disabled = true;
+    button.textContent = 'Enviando…';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: form.dataset.key,
+          subject: `Consulta web: ${val('tipo') || 'Sin especificar'} · ${val('nombre')}`,
+          from_name: 'Web Vetequus',
+          ...(val('email') && { replyto: val('email') }),
+          Nombre: val('nombre'),
+          Localidad: val('localidad') || '—',
+          Teléfono: val('telefono') || '—',
+          Email: val('email') || '—',
+          'Tipo de consulta': val('tipo') || '—',
+          Mensaje: val('mensaje'),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.message || res.statusText);
+      form.reset();
+      show('ok', 'Mensaje enviado. Le responderemos lo antes posible. Para urgencias, llame al ' + phone + '.');
+    } catch {
+      show('err', `No se ha podido enviar el mensaje. Llámenos o escríbanos por WhatsApp al ${phone}.`);
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Enviar mensaje';
+    }
+  });
+</script>

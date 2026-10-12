@@ -1,0 +1,18 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../site';
+---
+<Legal title="Política de cookies" description="Vetequus no utiliza cookies de análisis ni de publicidad." updated="octubre de 2026">
+  <h2>Esta web no usa cookies de análisis ni de publicidad</h2>
+  <p>Vetequus no instala cookies propias ni de terceros para analizar sus visitas, mostrar publicidad o seguir su navegación. Por eso no le mostramos ningún aviso de cookies.</p>
+
+  <h2>Qué hemos hecho para no necesitarlas</h2>
+  <ul>
+    <li>Las tipografías se sirven desde nuestro propio servidor, sin conectar con servicios de terceros.</li>
+    <li>No incrustamos mapas, vídeos ni publicaciones de redes sociales. Los enlaces a Facebook, Instagram o WhatsApp solo le llevan a esos servicios si pulsa en ellos, y a partir de ese momento se aplican sus propias políticas.</li>
+    <li>El formulario de contacto solo envía datos cuando usted pulsa «Enviar mensaje».</li>
+  </ul>
+
+  <h2>Cambios</h2>
+  <p>Si en el futuro incorporamos cookies que requieran su consentimiento, actualizaremos esta política y se lo pediremos antes de instalarlas. Para cualquier duda, escríbanos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</Legal>
