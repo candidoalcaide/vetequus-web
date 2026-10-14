@@ -18,6 +18,7 @@ const es = {
   ogLocale: 'es_ES',
   langName: 'Español',
   switchLabel: 'Cambiar idioma',
+  invitacionIngles: { texto: 'We speak English', enlace: 'English version' },
 
   nav: { servicios: 'Servicios', sobreMi: 'Sobre mí', blog: 'Blog', contacto: 'Contacto', home: 'Vetequus, inicio', principal: 'Principal' },
   llamar: 'Llamar',
@@ -153,6 +154,7 @@ const en: Textos = {
   ogLocale: 'en_GB',
   langName: 'English',
   switchLabel: 'Change language',
+  invitacionIngles: { texto: '', enlace: '' },
 
   nav: { servicios: 'Services', sobreMi: 'About me', blog: 'Blog', contacto: 'Contact', home: 'Vetequus, home', principal: 'Main' },
   llamar: 'Call',

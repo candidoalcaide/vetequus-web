@@ -62,6 +62,12 @@ const jsonLd = {
           <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{t.llamarAl} {SITE.telefono}</a>
           <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
         </div>
+        {t.invitacionIngles.texto && (
+          <p class="lang-invite" lang="en-GB">
+            <span>{t.invitacionIngles.texto}</span>
+            <a href={RUTAS.inicio.en} hreflang="en-GB">{t.invitacionIngles.enlace} →</a>
+          </p>
+        )}
         <div class="credentials">
           {t.hero.credentials.map((c) => <div class="credential"><b>{c.b}</b><span>{c.span}</span></div>)}
         </div>
