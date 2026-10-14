@@ -25,7 +25,7 @@ import { SERVICIOS } from '../servicios';
   <div class="field"><label for="f-mensaje">Mensaje</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
   <div class="hp" aria-hidden="true"><label for="f-botcheck">No rellenar</label><input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off"></div>
   <label class="check" for="f-privacidad"><input id="f-privacidad" name="privacidad" type="checkbox" required><span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span></label>
-  <p class="form-note">Déjenos un teléfono o un email para poder responderle. Para urgencias, llame directamente.</p>
+  <p class="form-note">Déjenos un teléfono o un email para poder responderle. El formulario no es para urgencias: si su caballo es paciente habitual, llámenos.</p>
   <div id="form-status" class="form-status" role="status" hidden></div>
   <button class="btn btn--solid" type="submit">Enviar mensaje</button>
 </form>
@@ -76,7 +76,7 @@ import { SERVICIOS } from '../servicios';
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) throw new Error(data.message || res.statusText);
       form.reset();
-      show('ok', 'Mensaje enviado. Le responderemos lo antes posible. Para urgencias, llame al ' + phone + '.');
+      show('ok', 'Mensaje enviado. Le responderemos en horario laborable.');
     } catch {
       show('err', `No se ha podido enviar el mensaje. Llámenos o escríbanos por WhatsApp al ${phone}.`);
     } finally {

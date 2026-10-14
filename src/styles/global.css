@@ -147,7 +147,8 @@ img { display: block; max-width: 100%; height: auto; }
 .hours { display: grid; gap: 8px; margin: 0; max-width: 460px; }
 .hours div { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid rgb(255 255 255 / .25); padding-block: 8px; flex-wrap: wrap; }
 .hours dt { font-weight: 600; }
-.hours dd { margin: 0; font-variant-numeric: tabular-nums; }
+.hours dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+.hours-note { max-width: 46ch; font-size: 1rem; color: rgb(244 248 247 / .85); }
 .band .btn--solid { background: #fff; color: var(--teal-deep); border-color: #fff; justify-self: start; }
 .band .btn--solid:hover { background: var(--mist); }
 

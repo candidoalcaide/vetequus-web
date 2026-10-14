@@ -19,8 +19,9 @@ export const SITE = {
   instagram: 'https://www.instagram.com/aidahuertas/',
   horario: [
     { dias: 'Lunes a viernes', horas: '10:00 – 18:00' },
-    { dias: 'Sábados, domingos y festivos', horas: 'Solo urgencias' },
+    { dias: 'Sábados, domingos y festivos', horas: 'Guardia de urgencias para pacientes habituales' },
   ],
+  notaUrgencias: 'Fuera del horario laborable, solo atendemos urgencias de los caballos que son pacientes habituales de la clínica.',
   zona: 'Provincia de Málaga y zonas colindantes',
   // Clave de Web3Forms (https://web3forms.com): se obtiene gratis introduciendo el email
   // que recibirá los mensajes. Es pública por diseño (va en el HTML), no es una contraseña.
