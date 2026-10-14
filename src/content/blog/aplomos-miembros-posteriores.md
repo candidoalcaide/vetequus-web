@@ -11,7 +11,7 @@ autora: Aida Huertas
 
 Para evaluar los aplomos de los miembros posteriores debemos situarnos primero en la parte trasera del caballo. Debemos observar:
 
-![](./img/aplomos2-portada.jpg)
+![Esquema anatómico de la conformación ideal de los miembros posteriores, con vistas lateral y caudal](./img/aplomos2-portada.jpg)
 
 Apariencia equilibrada y buena musculatura. Si se traza una línea desde la tuberosidad isquiática divide el miembro en partes iguales.
 

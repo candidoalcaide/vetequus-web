@@ -11,7 +11,7 @@ autora: Aida Huertas
 
 Es la forma que tiene el animal de colocar sus miembros o patas en el suelo. Unos malos aplomos predisponen a debilidad, problemas de carga (cojeras) e interferencia de miembros (alcances). Para poder detectar problemas de aplomos en un caballo no solo hay que observar al caballo parado, si no tambien en movimiento. En ambos casos habra que mirar desde en lateral, delante y detrás. En movimiento hay que verlo en suelo duro y cómo es el movimiento al inicio del tranco, durante la fase de vuelo y cuando apoya.
 
-![](./img/aplomos1-portada.jpg)
+![Esquema de los miembros anteriores vistos de frente y de perfil, con las líneas de referencia de unos aplomos correctos](./img/aplomos1-portada.jpg)
 
 Son pocos los animales que poseen unas extremidades con una forma perfecta; la mayoría de ellos tienen defectos de poca consideración que solo rebajarían su puntuación en la pista de exhibición, pero que no afectan para nada a su constitución atlética.
 

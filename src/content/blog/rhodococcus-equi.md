@@ -7,7 +7,7 @@ fecha: 2019-02-15
 autora: Aida Huertas
 ---
 
-![](./img/rhodococcus-1.jpg)
+![Potro castaño con lucero en primer plano, junto a otros potros y yeguas](./img/rhodococcus-1.jpg)
 
 Rhodococcus equi es un microorganismo productor de zoonosis, causante de neumonía granulomatosa y absceso de pulmón en los potros con menos de seis meses de edad. Rhodococcus equi es un patógeno ambiental con distribución universal que se encuentra en el aire, el agua y la tierra. El contacto directo con los animales, sus excrementos y con el estiércol puede ser el origen de la infección, siendo la inhalación el mecanismo de transmisión más probable, aunque también es posible adquirirlo por inoculación a través de la piel, membranas mucosas e ingestión oral. R. equi se presenta en el suelo y pastos de la mayoría de todas las granjas equinas, aunque la incidencia de la enfermedad clínica en las granjas tiene una gran variación. Es probable que esto sea el resultado de las diferentes concentraciones de la bacteria en el suelo, virulencia del organismo y factores de manejo.
 

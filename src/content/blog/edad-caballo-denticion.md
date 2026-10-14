@@ -9,7 +9,7 @@ autora: Aida Huertas
 
 Los dientes son una parte fundamental del aparato digestivo del caballo, permiten la masticación, pero no sólo esto, también nos dan una pista sobre la edad aproximada del animal según su erupción y desgaste.
 
-![](./img/denticion-1.jpg)
+![Dibujo anatómico del cráneo del caballo visto de frente, con los incisivos superiores](./img/denticion-1.jpg)
 
 Para realizar una lectura de la edad del caballo según la dentición es importante conocer los conceptos básicos sobre la dentición del caballo. Como el resto de los animales tienen cuatro tipos de dientes incisivos, caninos (que pueden estar o no), premolares y molares. La fórmula dentaria nos indica la cantidad de cada una de estas piezas que tiene el animal, se apunta el tipo de diente y dos numeros separados por una barra. En el caso del caballo:
 
@@ -25,7 +25,7 @@ Por ejemplo, I3 izquierdo superior, se refiere al incisivo más externo de la ar
 
 Al igual que las personas, los caballos también tienen dientes de leche o dentición decidua, que luego mudarán en una permanente. Viendo los momentos en que erupcionan los dientes, podemos saber la edad de un potro.
 
-![](./img/denticion-2-leche.jpg)
+![Dibujo anatómico del cráneo de un potro visto de perfil, con la dentición de leche](./img/denticion-2-leche.jpg)
 
 - I1: 1 ó 2 semanas
 - I2: 4-6 semanas
@@ -39,7 +39,7 @@ Al igual que las personas, los caballos también tienen dientes de leche o denti
 
 La dentición de leche caerá y dejará el espacio para que emerjan la dentición permanente. Esto sucede en momentos determinados y nos dice la edad del caballo. Veremos el hueco dejado por el diente de leche y el nuevo diente saliendo.
 
-![](./img/denticion-3-permanente.jpg)
+![Dibujo anatómico en color del cráneo del caballo adulto de perfil, con la dentición permanente](./img/denticion-3-permanente.jpg)
 
 - I1: 2-2'5 años
 - I2: 3-3'5 años
@@ -61,7 +61,7 @@ La dentición de leche caerá y dejará el espacio para que emerjan la dentició
 
 **Erupción dentaria:** Normalmente sólo tenemos acceso a los incisivos, si tuviéramos un abrebocas tendríamos una información mucho más completa. En cada edad indicada vemos cómo falta esa pieza y está saliendo la nueva. La diferencia entre los incisivos de leche y los definitivos es que los primeros son redondeados y los segundos rectangulares.
 
-![](./img/denticion-4-erupcion.jpg)
+![Boca de un caballo abierta con la mano, mostrando los incisivos durante el cambio de dientes](./img/denticion-4-erupcion.jpg)
 
 - 2'5 años: Cambiando I1 superior
 - 3 años: Cambiando I1 inferior

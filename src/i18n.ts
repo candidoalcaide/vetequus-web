@@ -26,7 +26,7 @@ const es = {
 
   meta: {
     title: 'Vetequus · Veterinaria de caballos en Málaga y provincia',
-    description: 'Clínica ambulante equina de Aída Huertas. Medicina general y deportiva, reproducción, odontología, diagnóstico por imagen, exámenes precompra y documentación en Málaga y provincia.',
+    description: 'Clínica ambulante equina de Aída Huertas en Málaga y provincia: medicina general y deportiva, reproducción, odontología, radiología y exámenes precompra.',
   },
 
   hero: {
@@ -162,7 +162,7 @@ const en: Textos = {
 
   meta: {
     title: 'Vetequus · Equine vet in Málaga and the Costa del Sol',
-    description: 'Ambulatory equine vet Aída Huertas. General and sports medicine, reproduction, dentistry, diagnostic imaging, pre-purchase examinations and paperwork across the province of Málaga.',
+    description: 'Ambulatory equine vet Aída Huertas, covering the province of Málaga: general and sports medicine, reproduction, dentistry, imaging and pre-purchase exams.',
   },
 
   hero: {
