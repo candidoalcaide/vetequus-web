@@ -1,19 +1,28 @@
 ---
 import Base from './Base.astro';
+import { T, type Lang } from '../i18n';
 
-interface Props { title: string; description: string; updated: string }
-const { title, description, updated } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  updated: string;
+  lang?: Lang;
+  alternates: Partial<Record<Lang, string>>;
+}
+const { title, description, updated, lang = 'es', alternates } = Astro.props;
+const t = T[lang];
 ---
-<Base title={`${title} · Vetequus`} description={description}>
+<Base title={`${title} · Vetequus`} description={description} lang={lang} alternates={alternates}>
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow">Información legal</p>
+      <p class="eyebrow">{t.legal.eyebrow}</p>
       <h1>{title}</h1>
-      <p class="meta">Última actualización: {updated}</p>
+      <p class="meta">{t.legal.actualizado}: {updated}</p>
     </div>
   </section>
   <div class="wrap">
     <div class="prose">
+      {t.legal.nota && <p><em>{t.legal.nota}</em></p>}
       <slot />
     </div>
   </div>

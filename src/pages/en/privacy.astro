@@ -1,0 +1,42 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE } from '../../site';
+import { RUTAS } from '../../i18n';
+---
+<Legal lang="en" title="Privacy policy" description="How Vetequus handles the personal data it receives through the website, phone, email and WhatsApp." updated="October 2026" alternates={RUTAS.privacidad}>
+  <h2>Data controller</h2>
+  <ul>
+    <li><strong>Controller:</strong> {SITE.titular} (Vetequus)</li>
+    <li><strong>Tax ID (NIF):</strong> {SITE.nif}</li>
+    <li><strong>Address:</strong> {SITE.domicilio}, Spain</li>
+    <li><strong>Email:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+    <li><strong>Phone:</strong> +34 {SITE.telefono}</li>
+  </ul>
+
+  <h2>What data we process</h2>
+  <p>Only the data you give us when you contact us: through the contact form (name, town or area, phone, email, type of enquiry and message), by email, by phone or by WhatsApp. Please do not send particularly sensitive data through the form.</p>
+
+  <h2>What we use it for</h2>
+  <p>To answer your enquiry and, if you ask, to arrange a veterinary visit. We do not use it for advertising and we do not build profiles.</p>
+
+  <h2>Legal basis</h2>
+  <ul>
+    <li>Your <strong>consent</strong>, given when you send the form or contact us (art. 6(1)(a) of the General Data Protection Regulation, GDPR). You can withdraw it at any time.</li>
+    <li>Taking <strong>steps at your request before entering into a contract</strong>, when you ask for a quote or an appointment (art. 6(1)(b) GDPR).</li>
+  </ul>
+
+  <h2>How long we keep it</h2>
+  <p>For as long as needed to deal with your enquiry. If you become a client, we keep the necessary data for the periods required by law (tax, animal health and animal identification rules).</p>
+
+  <h2>Who else has access</h2>
+  <p>We do not share your data with third parties unless required by law. To provide our service we use providers that process data on our behalf:</p>
+  <ul>
+    <li><strong>Web3Forms</strong>: delivers contact form messages to our email.</li>
+    <li><strong>Google (Gmail)</strong>: email service.</li>
+    <li><strong>Cloudflare</strong>: website hosting and security; it may log IP addresses for technical and security purposes.</li>
+  </ul>
+  <p>Some of these providers may process data outside the European Economic Area. Where they do, they apply the safeguards set out in the GDPR, such as the EU-US Data Privacy Framework or the European Commission’s standard contractual clauses.</p>
+
+  <h2>Your rights</h2>
+  <p>You can exercise your rights of access, rectification, erasure, objection, restriction of processing and portability by writing to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. If you believe we have not handled your data properly, you can complain to the Spanish Data Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>).</p>
+</Legal>

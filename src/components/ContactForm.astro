@@ -1,39 +1,53 @@
 ---
 // Formulario de contacto. Envía con Web3Forms (https://web3forms.com) a SITE.email.
 // No usa cookies ni scripts de terceros: solo una petición al enviar.
+// El email que recibe Aída va siempre en español e indica el idioma del cliente.
 import { SITE } from '../site';
-import { SERVICIOS } from '../servicios';
+import { T, RUTAS, SERVICIOS_ES, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const t = T[lang];
+const f = t.form;
+const mensajes = {
+  errNombre: f.errNombre, errContacto: f.errContacto, errMensaje: f.errMensaje, errPrivacidad: f.errPrivacidad,
+  enviar: f.enviar, enviando: f.enviando, ok: f.ok, errEnvio: `${f.errEnvio} ${SITE.telefono}.`,
+};
 ---
-<form class="form" id="contact-form" novalidate data-key={SITE.web3formsKey} data-phone={SITE.telefono}>
-  <h3>Escríbanos</h3>
+<form class="form" id="contact-form" novalidate
+  data-key={SITE.web3formsKey}
+  data-idioma={lang === 'es' ? 'Español' : 'Inglés'}
+  data-msg={JSON.stringify(mensajes)}>
+  <h3>{f.title}</h3>
   <div class="row">
-    <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
-    <div class="field"><label for="f-localidad">Localidad <span class="opt">(dónde está el caballo)</span></label><input id="f-localidad" name="localidad" autocomplete="address-level2"></div>
+    <div class="field"><label for="f-nombre">{f.nombre}</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+    <div class="field"><label for="f-localidad">{f.localidad} <span class="opt">{f.localidadAyuda}</span></label><input id="f-localidad" name="localidad" autocomplete="address-level2"></div>
   </div>
   <div class="row">
-    <div class="field"><label for="f-telefono">Teléfono</label><input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
-    <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+    <div class="field"><label for="f-telefono">{f.telefono}</label><input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
+    <div class="field"><label for="f-email">{f.email}</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
   </div>
   <div class="field">
-    <label for="f-tipo">Tipo de consulta</label>
+    <label for="f-tipo">{f.tipo}</label>
     <select id="f-tipo" name="tipo">
-      <option value="">Seleccione una opción</option>
-      {SERVICIOS.map((s) => <option>{s.nombre}</option>)}
-      <option>Otro</option>
+      <option value="">{f.tipoPlaceholder}</option>
+      {t.servicios.items.map((s, i) => <option value={SERVICIOS_ES[i]}>{s.nombre}</option>)}
+      <option value="Otro">{f.otro}</option>
     </select>
   </div>
-  <div class="field"><label for="f-mensaje">Mensaje</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
-  <div class="hp" aria-hidden="true"><label for="f-botcheck">No rellenar</label><input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off"></div>
-  <label class="check" for="f-privacidad"><input id="f-privacidad" name="privacidad" type="checkbox" required><span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span></label>
-  <p class="form-note">Déjenos un teléfono o un email para poder responderle. El formulario no es para urgencias: si su caballo es paciente habitual, llámenos.</p>
+  <div class="field"><label for="f-mensaje">{f.mensaje}</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
+  <div class="hp" aria-hidden="true"><label for="f-botcheck">{f.noRellenar}</label><input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off"></div>
+  <label class="check" for="f-privacidad"><input id="f-privacidad" name="privacidad" type="checkbox" required><span>{f.privacidadAntes} <a href={RUTAS.privacidad[lang]} target="_blank">{f.privacidadEnlace}</a>.</span></label>
+  <p class="form-note">{f.nota}</p>
   <div id="form-status" class="form-status" role="status" hidden></div>
-  <button class="btn btn--solid" type="submit">Enviar mensaje</button>
+  <button class="btn btn--solid" type="submit">{f.enviar}</button>
 </form>
 
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const status = document.getElementById('form-status') as HTMLDivElement;
   const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const msg = JSON.parse(form.dataset.msg ?? '{}');
   const val = (name: string) => ((form.elements.namedItem(name) as HTMLInputElement)?.value ?? '').trim();
 
   function show(kind: 'ok' | 'err', text: string) {
@@ -47,22 +61,22 @@ import { SERVICIOS } from '../servicios';
     if ((form.elements.namedItem('botcheck') as HTMLInputElement).checked) return; // trampa antispam
 
     let error = '';
-    if (!val('nombre')) error = 'Escriba su nombre.';
-    else if (!val('telefono') && !val('email')) error = 'Déjenos un teléfono o un email para poder responderle.';
-    else if (!val('mensaje')) error = 'Escriba su mensaje.';
-    else if (!(form.elements.namedItem('privacidad') as HTMLInputElement).checked) error = 'Debe aceptar la política de privacidad.';
+    if (!val('nombre')) error = msg.errNombre;
+    else if (!val('telefono') && !val('email')) error = msg.errContacto;
+    else if (!val('mensaje')) error = msg.errMensaje;
+    else if (!(form.elements.namedItem('privacidad') as HTMLInputElement).checked) error = msg.errPrivacidad;
     if (error) return show('err', error);
 
-    const phone = form.dataset.phone;
+    const idioma = form.dataset.idioma;
     button.disabled = true;
-    button.textContent = 'Enviando…';
+    button.textContent = msg.enviando;
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: form.dataset.key,
-          subject: `Consulta web: ${val('tipo') || 'Sin especificar'} · ${val('nombre')}`,
+          subject: `Consulta web${idioma === 'Inglés' ? ' [EN]' : ''}: ${val('tipo') || 'Sin especificar'} · ${val('nombre')}`,
           from_name: 'Web Vetequus',
           ...(val('email') && { replyto: val('email') }),
           Nombre: val('nombre'),
@@ -70,18 +84,19 @@ import { SERVICIOS } from '../servicios';
           Teléfono: val('telefono') || '—',
           Email: val('email') || '—',
           'Tipo de consulta': val('tipo') || '—',
+          'Idioma del cliente': idioma,
           Mensaje: val('mensaje'),
         }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) throw new Error(data.message || res.statusText);
       form.reset();
-      show('ok', 'Mensaje enviado. Le responderemos en horario laborable.');
+      show('ok', msg.ok);
     } catch {
-      show('err', `No se ha podido enviar el mensaje. Llámenos o escríbanos por WhatsApp al ${phone}.`);
+      show('err', msg.errEnvio);
     } finally {
       button.disabled = false;
-      button.textContent = 'Enviar mensaje';
+      button.textContent = msg.enviar;
     }
   });
 </script>

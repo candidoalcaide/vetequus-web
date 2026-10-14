@@ -13,33 +13,49 @@ import Icon from '../components/Icon.astro';
 import logo from '../assets/logo-icono.png';
 import ogDefault from '../assets/hero.jpg';
 import { SITE } from '../site';
+import { T, LANGS, RUTAS, type Lang } from '../i18n';
 
 interface Props {
   title: string;
   description: string;
+  lang?: Lang;
+  /** Misma página en cada idioma. Sin ella, la página solo existe en su idioma. */
+  alternates?: Partial<Record<Lang, string>>;
   image?: ImageMetadata;
   type?: 'website' | 'article';
 }
-const { title, description, image = ogDefault, type = 'website' } = Astro.props;
+const { title, description, lang = 'es', alternates, image = ogDefault, type = 'website' } = Astro.props;
+const t = T[lang];
+const home = RUTAS.inicio[lang];
+const anchor = (id: string) => (lang === 'es' ? `/#${id}` : `/en#${id}`);
+
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url);
 const ogImage = new URL(image.src, SITE.url);
 const path = Astro.url.pathname;
 const current = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
+
+// Selector de idioma: a la página equivalente si existe; si no, a la portada de ese idioma.
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const switchHref = alternates?.[otherLang] ?? RUTAS.inicio[otherLang];
 ---
 <!doctype html>
-<html lang="es">
+<html lang={t.htmlLang}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{title}</title>
     <meta name="description" content={description}>
     <link rel="canonical" href={canonical}>
+    {alternates && LANGS.filter((l) => alternates[l]).map((l) => (
+      <link rel="alternate" hreflang={T[l].htmlLang} href={new URL(alternates[l]!, SITE.url)}>
+    ))}
+    {alternates?.es && <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, SITE.url)}>}
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="sitemap" href="/sitemap-index.xml">
     <meta name="theme-color" content="#ffffff">
     <meta property="og:type" content={type}>
-    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale" content={t.ogLocale}>
     <meta property="og:site_name" content={SITE.name}>
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
@@ -50,18 +66,21 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
   <body>
     <header class="header">
       <div class="wrap">
-        <a class="brand" href="/" aria-label="Vetequus, inicio">
+        <a class="brand" href={home} aria-label={t.nav.home}>
           <Image src={logo} alt="" width={40} height={40} loading="eager" />
           <span class="brand-text">
             <span class="brand-name"><span class="vet">VET</span><span class="equus">EQUUS</span></span>
             <span class="brand-sub">AIDA HUERTAS</span>
           </span>
         </a>
-        <nav class="nav" aria-label="Principal">
-          <a href="/#servicios">Servicios</a>
-          <a href="/#sobre-mi">Sobre mí</a>
-          <a href="/blog" aria-current={current('/blog')}>Blog</a>
-          <a href="/#contacto">Contacto</a>
+        <nav class="nav" aria-label={t.nav.principal}>
+          <a href={anchor('servicios')}>{t.nav.servicios}</a>
+          <a href={anchor('sobre-mi')}>{t.nav.sobreMi}</a>
+          <a href="/blog" aria-current={current('/blog')}>{t.nav.blog}</a>
+          <a href={anchor('contacto')}>{t.nav.contacto}</a>
+          <a class="lang-switch" href={switchHref} hreflang={T[otherLang].htmlLang} lang={T[otherLang].htmlLang} aria-label={`${t.switchLabel}: ${T[otherLang].langName}`}>
+            {otherLang.toUpperCase()}
+          </a>
           <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{SITE.telefono}</a>
         </nav>
       </div>
@@ -75,18 +94,18 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
       <div class="wrap">
         <div>
           <h4>Vetequus</h4>
-          <p>Clínica ambulante equina de Aída Huertas Domínguez, veterinaria colegiada n.º {SITE.colegiada}.</p>
+          <p>{t.footer.descripcion}</p>
         </div>
         <div>
-          <h4>Contacto</h4>
+          <h4>{t.footer.contacto}</h4>
           <ul>
             <li><a href={`tel:${SITE.telefonoE164}`}>{SITE.telefono}</a></li>
             <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-            <li>{SITE.zona}</li>
+            <li>{t.footer.zona}</li>
           </ul>
         </div>
         <div>
-          <h4>Síganos</h4>
+          <h4>{t.footer.siganos}</h4>
           <ul>
             <li><a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></li>
             <li><a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a></li>
@@ -94,15 +113,16 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
         </div>
         <div class="legal">
           © {new Date().getFullYear()} Vetequus ·
-          <a href="/aviso-legal">Aviso legal</a> ·
-          <a href="/privacidad">Privacidad</a> ·
-          <a href="/cookies">Cookies</a>
+          <a href={RUTAS.avisoLegal[lang]}>{t.footer.avisoLegal}</a> ·
+          <a href={RUTAS.privacidad[lang]}>{t.footer.privacidad}</a> ·
+          <a href={RUTAS.cookies[lang]}>{t.footer.cookies}</a> ·
+          <a href={switchHref} hreflang={T[otherLang].htmlLang} lang={T[otherLang].htmlLang}>{T[otherLang].langName}</a>
         </div>
       </div>
     </footer>
 
     <div class="mobile-bar">
-      <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />Llamar</a>
+      <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{t.llamar}</a>
       <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
     </div>
   </body>

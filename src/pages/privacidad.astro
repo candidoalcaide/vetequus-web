@@ -1,8 +1,9 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { SITE } from '../site';
+import { RUTAS } from '../i18n';
 ---
-<Legal title="Política de privacidad" description="Cómo trata Vetequus los datos personales que recibe a través de la web, el teléfono, el email y WhatsApp." updated="octubre de 2026">
+<Legal title="Política de privacidad" description="Cómo trata Vetequus los datos personales que recibe a través de la web, el teléfono, el email y WhatsApp." updated="octubre de 2026" alternates={RUTAS.privacidad}>
   <h2>Responsable del tratamiento</h2>
   <ul>
     <li><strong>Responsable:</strong> {SITE.titular} (Vetequus)</li>

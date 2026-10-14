@@ -1,13 +1,15 @@
 ---
+// Única página de error para los dos idiomas (Cloudflare sirve /404.html en cualquier ruta).
 import Base from '../layouts/Base.astro';
 import { SITE } from '../site';
 ---
-<Base title="Página no encontrada · Vetequus" description="La página que busca no existe.">
+<Base title="Página no encontrada · Page not found · Vetequus" description="La página que busca no existe. The page you are looking for does not exist.">
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow">Error 404</p>
       <h1>No encontramos esta página</h1>
       <p class="hero-lead">Puede que la dirección haya cambiado. Vuelva a la <a href="/">portada</a>, consulte el <a href="/blog">blog</a> o llámenos al {SITE.telefono}.</p>
+      <p class="hero-lead" lang="en-GB">Page not found. Go to the <a href="/en">English home page</a> or call us on +34 {SITE.telefono}.</p>
     </div>
   </section>
 </Base>

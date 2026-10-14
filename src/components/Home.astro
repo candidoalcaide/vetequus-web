@@ -1,0 +1,174 @@
+---
+// Portada, compartida por /(es) y /en.
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
+import ContactForm from './ContactForm.astro';
+import hero from '../assets/hero.jpg';
+import campo from '../assets/caballo-campo.jpg';
+import aida from '../assets/aida.jpg';
+import logo from '../assets/logo-icono.png';
+import { SITE } from '../site';
+import { T, RUTAS, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+
+// Artículos destacados en portada (los más leídos en Wix). El blog solo está en español.
+const destacados = ['aplomos-miembros-anteriores', 'genetica-de-capas', 'aplomos-miembros-posteriores'];
+const todos = await getCollection('blog');
+const posts = todos
+  .filter((p) => destacados.includes(p.id))
+  .sort((a, b) => destacados.indexOf(a.id) - destacados.indexOf(b.id));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VeterinaryCare',
+  name: 'Vetequus',
+  description: t.meta.description,
+  url: new URL(RUTAS.inicio[lang], SITE.url).href,
+  telephone: SITE.telefonoE164,
+  email: SITE.email,
+  image: new URL(hero.src, SITE.url).href,
+  founder: { '@type': 'Person', name: SITE.titular, jobTitle: lang === 'es' ? 'Veterinaria' : 'Veterinary surgeon' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Finca La Capellanía',
+    postalCode: SITE.codigoPostal,
+    addressLocality: SITE.localidad,
+    addressRegion: 'Málaga',
+    addressCountry: 'ES',
+  },
+  areaServed: { '@type': 'AdministrativeArea', name: lang === 'es' ? 'Provincia de Málaga' : 'Province of Málaga' },
+  availableLanguage: ['es', 'en'],
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '18:00' },
+  ],
+  sameAs: [SITE.facebook, SITE.instagram],
+};
+---
+<Base title={t.meta.title} description={t.meta.description} lang={lang} alternates={RUTAS.inicio}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">{t.hero.eyebrow}</p>
+        <h1>{t.hero.title}</h1>
+        <p class="hero-lead">{t.hero.lead}</p>
+        <div class="hero-actions">
+          <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{t.llamarAl} {SITE.telefono}</a>
+          <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+        </div>
+        <div class="credentials">
+          {t.hero.credentials.map((c) => <div class="credential"><b>{c.b}</b><span>{c.span}</span></div>)}
+        </div>
+      </div>
+      <div class="hero-photo">
+        <Image src={hero} alt={t.hero.imgAlt} widths={[600, 900, 1200]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" fetchpriority="high" />
+        <div class="hero-badge">
+          <Image src={logo} alt="" width={34} height={34} />
+          <div><strong>{t.hero.badgeTitle}</strong><span>{t.hero.badgeText}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{t.servicios.eyebrow}</p>
+        <h2>{t.servicios.title}</h2>
+        <p>{t.servicios.lead}</p>
+      </div>
+      <div class="services">
+        {t.servicios.items.map((s) => (
+          <article class="service">
+            <h3>{s.nombre}</h3>
+            <p>{s.resumen}</p>
+            <details><summary>{t.servicios.mas}</summary><p>{s.detalle}</p></details>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="horario-title">
+    <Image src={campo} alt="" widths={[800, 1600]} sizes="100vw" />
+    <div class="wrap">
+      <p class="eyebrow" style="color:#9fe3e7">{t.horario.eyebrow}</p>
+      <h2 id="horario-title">{t.horario.title}</h2>
+      <dl class="hours">
+        {t.horario.filas.map((h) => <div><dt>{h.dias}</dt><dd>{h.horas}</dd></div>)}
+      </dl>
+      <p class="hours-note">{t.horario.nota}</p>
+      <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}>{t.llamarAl} {SITE.telefono}</a>
+    </div>
+  </section>
+
+  <section class="section" id="sobre-mi">
+    <div class="wrap about">
+      <figure class="about-photo">
+        <Image src={aida} alt={t.sobreMi.imgAlt} widths={[480, 720]} sizes="(min-width: 900px) 40vw, 100vw" />
+        <figcaption>{t.sobreMi.caption}</figcaption>
+      </figure>
+      <div class="about-copy">
+        <p class="eyebrow">{t.sobreMi.eyebrow}</p>
+        <h2>Aída Huertas Domínguez</h2>
+        <p>{t.sobreMi.intro}</p>
+        <ul class="cv">
+          {t.sobreMi.cv.map((c) => <li><span class="year">{c.year}</span><span>{c.text}</span></li>)}
+        </ul>
+        <details class="more">
+          <summary>{t.sobreMi.masTitulo}</summary>
+          {t.sobreMi.mas.map((p) => <p>{p}</p>)}
+        </details>
+        <p class="signoff">{t.sobreMi.firma}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="blog">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{t.blog.eyebrow}</p>
+        <h2>{t.blog.title}</h2>
+        {t.blog.nota && <p>{t.blog.nota}</p>}
+      </div>
+      <div class="posts">
+        {posts.map((p) => (
+          <a class="post" href={`/blog/${p.id}`} hreflang={lang === 'es' ? undefined : 'es'}>
+            <Image src={p.data.portada} alt="" widths={[400, 800]} sizes="(min-width: 900px) 33vw, 100vw" />
+            <div class="post-body" lang="es"><h3>{p.data.title}</h3><p>{p.data.descripcion}</p></div>
+          </a>
+        ))}
+      </div>
+      <div class="posts-more"><a class="btn btn--ghost" href="/blog">{t.blog.verTodos(todos.length)}</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="wrap contact">
+      <div class="direct">
+        <div class="section-head" style="margin-bottom:0">
+          <p class="eyebrow">{t.contacto.eyebrow}</p>
+          <h2>{t.contacto.title}</h2>
+          <p>{t.contacto.lead}</p>
+        </div>
+        <dl>
+          <div><dt>{t.contacto.telefono}</dt><dd><a href={`tel:${SITE.telefonoE164}`}>{SITE.telefono}</a></dd></div>
+          <div><dt>{t.contacto.email}</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+          <div><dt>{t.contacto.zona}</dt><dd>{t.contacto.zonaTexto}</dd></div>
+          <div><dt>{t.contacto.horario}</dt><dd>{t.horario.resumen}</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn--solid" href={`tel:${SITE.telefonoE164}`}><Icon name="phone" />{t.llamar}</a>
+          <a class="btn btn--ghost" href={SITE.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" />WhatsApp</a>
+        </div>
+      </div>
+      <ContactForm lang={lang} />
+    </div>
+  </section>
+</Base>

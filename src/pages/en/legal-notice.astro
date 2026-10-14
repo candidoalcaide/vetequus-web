@@ -1,0 +1,39 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE } from '../../site';
+import { RUTAS } from '../../i18n';
+---
+<Legal lang="en" title="Legal notice" description="Details of the owner of vetequus.com and terms of use of the website." updated="October 2026" alternates={RUTAS.avisoLegal}>
+  <h2>Website owner</h2>
+  <p>In accordance with article 10 of Spanish Law 34/2002 of 11 July on Information Society Services and Electronic Commerce (LSSI-CE), the owner of this website is:</p>
+  <ul>
+    <li><strong>Owner:</strong> {SITE.titular} (Vetequus)</li>
+    <li><strong>Tax ID (NIF):</strong> {SITE.nif}</li>
+    <li><strong>Address:</strong> {SITE.domicilio}, Spain</li>
+    <li><strong>Email:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+    <li><strong>Phone:</strong> +34 {SITE.telefono}</li>
+  </ul>
+
+  <h2>Regulated profession</h2>
+  <ul>
+    <li><strong>Profession:</strong> veterinary surgeon</li>
+    <li><strong>Qualification:</strong> Degree in Veterinary Medicine, University of Córdoba (Spain)</li>
+    <li><strong>Professional body:</strong> {SITE.colegio} (Málaga College of Veterinary Surgeons), registration no. {SITE.colegiada}</li>
+    <li><strong>Professional rules:</strong> Spanish Law 2/1974 on Professional Associations; Statutes of the Spanish Veterinary Professional Organisation and the Code of Ethics for the veterinary profession, available from the professional body.</li>
+  </ul>
+
+  <h2>Purpose</h2>
+  <p>This website provides information about the veterinary services of Vetequus, an ambulatory equine practice, and educational articles on equine health. Access is free and requires no registration.</p>
+
+  <h2>Educational content</h2>
+  <p>Blog articles are general and for information only. They do not replace diagnosis or treatment by a vet who has examined the animal. If you have any concern about your horse’s health, consult your vet.</p>
+
+  <h2>Intellectual property</h2>
+  <p>The texts, logo and images on this website belong to its owner or are used with their authors’ permission, and may not be reproduced without authorisation. The photographs in the article “Genética de capas en los caballos” are by Elise Genest (<a href="https://www.elisegenest.com" target="_blank" rel="noopener">elisegenest.com</a>).</p>
+
+  <h2>External links</h2>
+  <p>This website links to other sites, such as social networks. The owner is not responsible for their content or privacy policies.</p>
+
+  <h2>Applicable law</h2>
+  <p>This legal notice is governed by Spanish law.</p>
+</Legal>

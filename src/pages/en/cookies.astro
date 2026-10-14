@@ -1,0 +1,19 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE } from '../../site';
+import { RUTAS } from '../../i18n';
+---
+<Legal lang="en" title="Cookie policy" description="Vetequus does not use analytics or advertising cookies." updated="October 2026" alternates={RUTAS.cookies}>
+  <h2>This website does not use analytics or advertising cookies</h2>
+  <p>Vetequus does not set its own or third-party cookies to analyse your visits, show advertising or track your browsing. That is why you do not see a cookie banner.</p>
+
+  <h2>How we avoid needing them</h2>
+  <ul>
+    <li>Fonts are served from our own server, without connecting to third-party services.</li>
+    <li>We do not embed maps, videos or social media posts. Links to Facebook, Instagram or WhatsApp only take you to those services if you click them, and from then on their own policies apply.</li>
+    <li>The contact form only sends data when you press “Send message”.</li>
+  </ul>
+
+  <h2>Changes</h2>
+  <p>If we ever add cookies that require your consent, we will update this policy and ask for your consent before setting them. For any questions, email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</Legal>

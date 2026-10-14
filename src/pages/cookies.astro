@@ -1,8 +1,9 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { SITE } from '../site';
+import { RUTAS } from '../i18n';
 ---
-<Legal title="Política de cookies" description="Vetequus no utiliza cookies de análisis ni de publicidad." updated="octubre de 2026">
+<Legal title="Política de cookies" description="Vetequus no utiliza cookies de análisis ni de publicidad." updated="octubre de 2026" alternates={RUTAS.cookies}>
   <h2>Esta web no usa cookies de análisis ni de publicidad</h2>
   <p>Vetequus no instala cookies propias ni de terceros para analizar sus visitas, mostrar publicidad o seguir su navegación. Por eso no le mostramos ningún aviso de cookies.</p>
 
