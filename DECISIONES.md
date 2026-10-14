@@ -33,12 +33,15 @@ Prioridad: **migración fiel y rápida**, con un diseño limpio que mantenga la 
 - Código en GitHub: `candidoalcaide/vetequus-web` (privado). Cada `git push` publica automáticamente.
 - Web de prueba: https://vetequus-web.candidoalcaide.workers.dev (Cloudflare Workers).
 - Comprobado en la web de prueba: todas las páginas, la 404 propia y las redirecciones 301 de las URLs antiguas `/post/...` de Wix.
+- Versión en inglés publicada en `/en` (portada, formulario y legales; el blog sigue solo en español). Textos de ambos idiomas en `src/i18n.ts`.
+- Urgencias fuera de horario: solo para pacientes habituales (texto en `src/i18n.ts`).
+- Formulario activo con Web3Forms.
 - vetequus.com sigue apuntando a Wix; el correo no se ha tocado.
 
 ## Pendiente
 
 1. Revisión de Aída (sobre todo los textos legales; conviene que los vea su gestoría).
-2. Clave de Web3Forms (web3forms.com con vetequus@gmail.com) → `web3formsKey` en `src/site.ts`.
+2. Confirmar que el email de prueba del formulario llega a vetequus@gmail.com.
 3. Cambio de dominio:
    - Añadir vetequus.com en Cloudflare (plan Free) y revisar los registros DNS importados.
    - Quitar los MX de Google y activar Email Routing → vetequus@gmail.com.
