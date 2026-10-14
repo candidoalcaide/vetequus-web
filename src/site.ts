@@ -24,5 +24,5 @@ export const SITE = {
   zona: 'Provincia de Málaga y zonas colindantes',
   // Clave de Web3Forms (https://web3forms.com): se obtiene gratis introduciendo el email
   // que recibirá los mensajes. Es pública por diseño (va en el HTML), no es una contraseña.
-  web3formsKey: 'PENDIENTE',
+  web3formsKey: '1cc53e1c-9fe9-4af2-8fc5-d1835bf41dbf',
 };
